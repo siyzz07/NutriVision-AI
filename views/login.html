@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login | AI Health Assistant</title>
+
+<style>
+body{
+font-family:Arial;
+background:linear-gradient(to right,#43cea2,#185a9d);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+.box{
+background:white;
+padding:30px;
+width:350px;
+border-radius:15px;
+text-align:center;
+}
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:8px;
+border:1px solid #ccc;
+}
+button{
+width:100%;
+padding:12px;
+background:#1abc9c;
+border:none;
+color:white;
+font-size:16px;
+border-radius:8px;
+cursor:pointer;
+}
+a{ color:#1abc9c; }
+</style>
+</head>
+
+<body>
+
+<div class="box">
+<h2>Login</h2>
+
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
+
+<button onclick="login()">Login</button>
+
+<p>
+  New user?
+  <span 
+    style="color:#1abc9c; cursor:pointer; text-decoration:underline;"
+    onclick="window.location.href='/register'"
+  >
+    Register Here
+  </span>
+</p></div>
+
+<script>
+async function login(){
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+    if(email === "" || password === ""){
+        alert("Please enter email and password");
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+        
+        const data = await response.json();
+        
+        if(response.ok){
+            // Save user data for frontend usage
+            localStorage.setItem("user", JSON.stringify(data.user));
+            window.location.href = "/home";
+        } else {
+            alert(data.message || "Login failed");
+        }
+    } catch(err) {
+        console.error(err);
+        alert("Server error");
+    }
+}
+</script>
+
+</body>
+</html>

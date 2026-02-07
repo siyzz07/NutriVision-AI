@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Profile | AI-Based Healthy Lifestyle Assistant</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background: linear-gradient(to bottom,#e0ccff,#eaf9ff);
+}
+
+.container{
+max-width:420px;
+margin:30px auto;
+background:white;
+border-radius:25px;
+padding:25px;
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+.header{
+text-align:center;
+font-size:20px;
+font-weight:bold;
+color:#1b7fbd;
+margin-bottom:20px;
+}
+
+.profile-pic{
+width:120px;
+height:120px;
+border-radius:50%;
+display:block;
+margin:0 auto;
+}
+
+.center{text-align:center;}
+
+input{
+width:100%;
+padding:12px;
+margin-top:8px;
+border-radius:10px;
+border:1px solid #ccc;
+font-size:16px;
+}
+
+.card{
+background:#f7fbff;
+padding:15px;
+border-radius:15px;
+margin-top:15px;
+}
+
+.btn{
+width:100%;
+padding:15px;
+margin-top:15px;
+font-size:16px;
+border:none;
+border-radius:15px;
+cursor:pointer;
+}
+
+.save{background:#644bbf;color:rgb(255, 255, 255);}
+.back{background:#f1f1f1;}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">AI-Based Healthy Lifestyle Assistant</div>
+
+<img src="https://i.imgur.com/6VBx3io.png" class="profile-pic">
+
+<div class="center">
+<h2 id="nameText"></h2>
+<p id="emailText"></p>
+</div>
+
+<input id="name" placeholder="Name">
+<input id="email" placeholder="Email">
+
+<div class="card">
+<h4>❤️ Health Condition</h4>
+<input id="disease" placeholder="Eg: Diabetes">
+</div>
+
+<div class="card">
+<h4>🧪 Blood Test Reports</h4>
+<input id="cholesterol" placeholder="Cholesterol">
+<input id="sgpt" placeholder="SGPT">
+</div>
+
+<button class="btn save" onclick="saveProfile()">Save Changes</button>
+<button class="btn back" onclick="goHome()">Back to Home</button>
+
+</div>
+
+<script>
+let user = JSON.parse(localStorage.getItem("user"));
+
+if(!user){
+  user = {
+    name:"",
+    email:"",
+    disease:"",
+    cholesterol:"",
+    sgpt:""
+  };
+}
+
+// Load data
+name.value = user.name;
+email.value = user.email;
+disease.value = user.disease;
+cholesterol.value = user.cholesterol;
+sgpt.value = user.sgpt;
+
+nameText.innerText = user.name;
+emailText.innerText = user.email;
+
+function saveProfile(){
+  user.name = name.value;
+  user.email = email.value;
+  user.disease = disease.value;
+  user.cholesterol = cholesterol.value;
+  user.sgpt = sgpt.value;
+
+  localStorage.setItem("user", JSON.stringify(user));
+  alert("Profile updated successfully!");
+}
+
+function goHome(){
+  window.location.href = "/home";
+}
+</script>
+
+</body>
+</html>

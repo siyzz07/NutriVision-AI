@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Health Report</title>
+
+<style>
+body{
+margin:0;
+font-family: Arial, sans-serif;
+background: linear-gradient(#eaf6ff,#d6f0ff);
+}
+
+.container{
+max-width:900px;
+margin:20px auto;
+padding:20px;
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:white;
+padding:15px 20px;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+.header h2{
+margin:0;
+}
+.header button{
+padding:8px 15px;
+border:none;
+border-radius:8px;
+background:#654adf;
+color:#fff;
+cursor:pointer;
+}
+
+/* CARD */
+.card{
+background:#fff;
+border-radius:15px;
+padding:20px;
+margin-top:20px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* PROFILE */
+.profile{
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+.profile img{
+width:90px;
+border-radius:50%;
+}
+
+/* PARAMETERS */
+.parameters{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:15px;
+}
+.param{
+padding:15px;
+border-radius:12px;
+background:#f5faff;
+text-align:center;
+}
+.good{ color:green; font-weight:bold;}
+.warn{ color:orange; font-weight:bold;}
+.bad{ color:red; font-weight:bold;}
+
+/* AI RESULT */
+.ai-box{
+display:flex;
+align-items:center;
+gap:20px;
+}
+.ai-box img{
+width:160px;
+}
+
+/* LIST */
+ul{
+padding-left:20px;
+}
+li{
+margin-bottom:8px;
+}
+
+/* FOOTER */
+.footer{
+text-align:center;
+margin-top:30px;
+color:#555;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+<h2>Health Report</h2>
+<button onclick="goHome()">← Home</button>
+</div>
+
+<!-- USER PROFILE -->
+<div class="card profile">
+<div>
+<h3>User Profile</h3>
+<p><b>Name:</b> <span id="name"></span></p>
+<p><b>Email:</b> <span id="email"></span></p>
+<p><b>Health Conditions:</b> <span id="disease"></span></p>
+</div>
+<img src="https://i.imgur.com/1X5RZzF.png" alt="profile">
+</div>
+
+<!-- HEALTH PARAMETERS -->
+<div class="card">
+<h3>Health Parameters</h3>
+<div class="parameters">
+<div class="param">
+Blood Pressure<br>
+<b>120 / 80</b><br>
+<span class="good">Good</span>
+</div>
+<div class="param">
+Cholesterol<br>
+<b>210 mg/dL</b><br>
+<span class="warn">Elevated</span>
+</div>
+<div class="param">
+Blood Sugar<br>
+<b>145 mg/dL</b><br>
+<span class="bad">Elevated</span>
+</div>
+<div class="param">
+BMI<br>
+<b>23.5</b><br>
+<span class="good">Good</span>
+</div>
+</div>
+</div>
+
+<!-- AI FOOD SCAN -->
+<div class="card ai-box">
+<div>
+<h3>AI Food Scanner Analysis</h3>
+<p><b>Last scanned item:</b> Packaged Fruit Juice</p>
+<p><b>AI Result:</b> ❌ <span class="bad">Not Recommended</span></p>
+<p><b>Reason:</b> High sugar content – not suitable for diabetes</p>
+</div>
+<img src="https://i.imgur.com/9Z6ZK6J.png" alt="scan">
+</div>
+
+<!-- AI RECOMMENDATIONS -->
+<div class="card">
+<h3>Personalized AI Recommendations</h3>
+<ul>
+<li>Choose low-sugar and high-fiber foods</li>
+<li>Avoid processed and packaged drinks</li>
+<li>Monitor cholesterol levels regularly</li>
+<li>Maintain physical activity for heart health</li>
+</ul>
+</div>
+
+<div class="footer">
+AI-Based Healthy Lifestyle Assistant © 2026
+</div>
+
+</div>
+
+<!-- SINGLE CLEAN SCRIPT -->
+<script>
+const user = JSON.parse(localStorage.getItem("user"));
+
+if(!user){
+  window.location.href = "/login";
+}
+
+document.getElementById("name").innerText = user.name || "John Wilson";
+document.getElementById("email").innerText = user.email || "john@example.com";
+document.getElementById("disease").innerText =
+  user.disease || "No condition added";
+
+function goHome(){
+  window.location.href = "/home";
+}
+</script>
+
+</body>
+</html>
