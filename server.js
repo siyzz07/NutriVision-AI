@@ -12,6 +12,7 @@ connectDB();
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.static("public"));
 
 // Serve login.html
 app.get("/login", (req, res) => {

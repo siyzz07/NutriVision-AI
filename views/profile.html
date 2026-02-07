@@ -1,144 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Profile | AI-Based Healthy Lifestyle Assistant</title>
-
-<style>
-body{
-margin:0;
-font-family:Arial, sans-serif;
-background: linear-gradient(to bottom,#e0ccff,#eaf9ff);
-}
-
-.container{
-max-width:420px;
-margin:30px auto;
-background:white;
-border-radius:25px;
-padding:25px;
-box-shadow:0 10px 25px rgba(0,0,0,0.15);
-}
-
-.header{
-text-align:center;
-font-size:20px;
-font-weight:bold;
-color:#1b7fbd;
-margin-bottom:20px;
-}
-
-.profile-pic{
-width:120px;
-height:120px;
-border-radius:50%;
-display:block;
-margin:0 auto;
-}
-
-.center{text-align:center;}
-
-input{
-width:100%;
-padding:12px;
-margin-top:8px;
-border-radius:10px;
-border:1px solid #ccc;
-font-size:16px;
-}
-
-.card{
-background:#f7fbff;
-padding:15px;
-border-radius:15px;
-margin-top:15px;
-}
-
-.btn{
-width:100%;
-padding:15px;
-margin-top:15px;
-font-size:16px;
-border:none;
-border-radius:15px;
-cursor:pointer;
-}
-
-.save{background:#644bbf;color:rgb(255, 255, 255);}
-.back{background:#f1f1f1;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | AI Health Assistant</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
 
-<div class="container">
+    <div class="container">
+        
+        <div class="profile-header">
+            <img src="https://i.imgur.com/6VBx3io.png" class="profile-pic" alt="Profile Picture">
+            <h2 id="nameText">User Name</h2>
+            <p id="emailText" class="subtitle">user@example.com</p>
+        </div>
 
-<div class="header">AI-Based Healthy Lifestyle Assistant</div>
+        <div class="section-title">
+            <i class="fas fa-user-edit"></i> Edit Profile
+        </div>
 
-<img src="https://i.imgur.com/6VBx3io.png" class="profile-pic">
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input id="name" placeholder="Name">
+        </div>
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input id="email" placeholder="Email">
+        </div>
 
-<div class="center">
-<h2 id="nameText"></h2>
-<p id="emailText"></p>
-</div>
+        <div class="section-card">
+            <div class="section-title" style="margin-bottom: 10px;">
+                <i class="fas fa-heartbeat"></i> Health Condition
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+                <input id="disease" placeholder="Eg: Diabetes">
+            </div>
+        </div>
 
-<input id="name" placeholder="Name">
-<input id="email" placeholder="Email">
+        <div class="section-card">
+            <div class="section-title" style="margin-bottom: 10px;">
+                <i class="fas fa-vial"></i> Blood Test Reports
+            </div>
+            <div class="form-group">
+                <label>Cholesterol</label>
+                <input id="cholesterol" placeholder="Cholesterol level">
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+                <label>SGPT</label>
+                <input id="sgpt" placeholder="SGPT level">
+            </div>
+        </div>
 
-<div class="card">
-<h4>❤️ Health Condition</h4>
-<input id="disease" placeholder="Eg: Diabetes">
-</div>
+        <div class="row">
+            <button class="btn save" onclick="saveProfile()" style="background: var(--primary-color);">
+                <i class="fas fa-save"></i> Save Changes
+            </button>
+            <button class="btn btn-secondary" onclick="goHome()">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </button>
+        </div>
 
-<div class="card">
-<h4>🧪 Blood Test Reports</h4>
-<input id="cholesterol" placeholder="Cholesterol">
-<input id="sgpt" placeholder="SGPT">
-</div>
+    </div>
 
-<button class="btn save" onclick="saveProfile()">Save Changes</button>
-<button class="btn back" onclick="goHome()">Back to Home</button>
+    <script>
+    let user = JSON.parse(localStorage.getItem("user"));
 
-</div>
+    if(!user){
+        user = {
+            name:"",
+            email:"",
+            disease:"",
+            cholesterol:"",
+            sgpt:""
+        };
+    }
 
-<script>
-let user = JSON.parse(localStorage.getItem("user"));
+    // Load data
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const diseaseInput = document.getElementById("disease");
+    const cholesterolInput = document.getElementById("cholesterol");
+    const sgptInput = document.getElementById("sgpt");
+    
+    // Safety check to ensure elements exist
+    if(nameInput) nameInput.value = user.name || "";
+    if(emailInput) emailInput.value = user.email || "";
+    if(diseaseInput) diseaseInput.value = user.disease || "";
+    if(cholesterolInput) cholesterolInput.value = user.cholesterol || "";
+    if(sgptInput) sgptInput.value = user.sgpt || "";
 
-if(!user){
-  user = {
-    name:"",
-    email:"",
-    disease:"",
-    cholesterol:"",
-    sgpt:""
-  };
-}
+    const nameText = document.getElementById("nameText");
+    const emailText = document.getElementById("emailText");
 
-// Load data
-name.value = user.name;
-email.value = user.email;
-disease.value = user.disease;
-cholesterol.value = user.cholesterol;
-sgpt.value = user.sgpt;
+    if(nameText) nameText.innerText = user.name || "Guest";
+    if(emailText) emailText.innerText = user.email || "";
 
-nameText.innerText = user.name;
-emailText.innerText = user.email;
+    function saveProfile(){
+        if(nameInput) user.name = nameInput.value;
+        if(emailInput) user.email = emailInput.value;
+        if(diseaseInput) user.disease = diseaseInput.value;
+        if(cholesterolInput) user.cholesterol = cholesterolInput.value;
+        if(sgptInput) user.sgpt = sgptInput.value;
 
-function saveProfile(){
-  user.name = name.value;
-  user.email = email.value;
-  user.disease = disease.value;
-  user.cholesterol = cholesterol.value;
-  user.sgpt = sgpt.value;
+        localStorage.setItem("user", JSON.stringify(user));
+        
+        // Update display text immediately
+        if(nameText) nameText.innerText = user.name;
+        if(emailText) emailText.innerText = user.email;
+        
+        alert("Profile updated successfully!");
+    }
 
-  localStorage.setItem("user", JSON.stringify(user));
-  alert("Profile updated successfully!");
-}
-
-function goHome(){
-  window.location.href = "/home";
-}
-</script>
+    function goHome(){
+        window.location.href = "/home";
+    }
+    </script>
 
 </body>
 </html>

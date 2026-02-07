@@ -1,98 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Login | AI Health Assistant</title>
-
-<style>
-body{
-font-family:Arial;
-background:linear-gradient(to right,#43cea2,#185a9d);
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-}
-.box{
-background:white;
-padding:30px;
-width:350px;
-border-radius:15px;
-text-align:center;
-}
-input{
-width:100%;
-padding:12px;
-margin:10px 0;
-border-radius:8px;
-border:1px solid #ccc;
-}
-button{
-width:100%;
-padding:12px;
-background:#1abc9c;
-border:none;
-color:white;
-font-size:16px;
-border-radius:8px;
-cursor:pointer;
-}
-a{ color:#1abc9c; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | AI Health Assistant</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
 
-<div class="box">
-<h2>Login</h2>
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <i class="fas fa-heartbeat fa-3x" style="color: var(--primary-color);"></i>
+        </div>
+        <h2>Welcome Back</h2>
+        <p class="subtitle">Login to your AI Health Assistant</p>
 
-<input type="email" id="email" placeholder="Email">
-<input type="password" id="password" placeholder="Password">
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
 
-<button onclick="login()">Login</button>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password" required>
+        </div>
 
-<p>
-  New user?
-  <span 
-    style="color:#1abc9c; cursor:pointer; text-decoration:underline;"
-    onclick="window.location.href='/register'"
-  >
-    Register Here
-  </span>
-</p></div>
+        <button onclick="login()" class="btn">Login <i class="fas fa-arrow-right"></i></button>
 
-<script>
-async function login(){
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
+        <div class="link-text">
+            New here? <a href="/register">Create an account</a>
+        </div>
+    </div>
 
-    if(email === "" || password === ""){
-        alert("Please enter email and password");
-        return;
-    }
+    <script>
+    async function login(){
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
 
-    try {
-        const response = await fetch('/api/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        });
-        
-        const data = await response.json();
-        
-        if(response.ok){
-            // Save user data for frontend usage
-            localStorage.setItem("user", JSON.stringify(data.user));
-            window.location.href = "/home";
-        } else {
-            alert(data.message || "Login failed");
+        if(email === "" || password === ""){
+            alert("Please enter email and password");
+            return;
         }
-    } catch(err) {
-        console.error(err);
-        alert("Server error");
+
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+            
+            const data = await response.json();
+            
+            if(response.ok){
+                localStorage.setItem("user", JSON.stringify(data.user));
+                window.location.href = "/home";
+            } else {
+                alert(data.message || "Login failed");
+            }
+        } catch(err) {
+            console.error(err);
+            alert("Server error");
+        }
     }
-}
-</script>
+    </script>
 
 </body>
 </html>

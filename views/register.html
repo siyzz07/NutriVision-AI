@@ -1,241 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>AI-Based Healthy Lifestyle Assistant | Register</title>
-
-<style>
-body {
-font-family: Arial, sans-serif;
-background: linear-gradient(to right, #4facfe, #43e97b);
-margin: 0;
-padding: 0;
-}
-
-.container {
-width: 420px;
-background: #fff;
-margin: 40px auto;
-padding: 25px;
-border-radius: 12px;
-box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-}
-
-.logo {
-text-align: center;
-font-weight: bold;
-font-size: 20px;
-color: #1b6ca8;
-}
-
-.subtitle {
-text-align: center;
-color: #555;
-font-size: 14px;
-margin-bottom: 20px;
-}
-
-input, select {
-width: 100%;
-padding: 10px;
-margin: 8px 0;
-border-radius: 6px;
-border: 1px solid #ccc;
-font-size: 14px;
-}
-
-.row {
-display: flex;
-gap: 10px;
-}
-
-.row input, .row select {
-flex: 1;
-}
-
-.toggle {
-display: flex;
-align-items: center;
-gap: 10px;
-margin: 10px 0;
-}
-
-.add-btn {
-background: #eaf4ff;
-color: #1b6ca8;
-border: none;
-padding: 10px;
-width: 100%;
-border-radius: 6px;
-cursor: pointer;
-font-weight: bold;
-}
-
-.add-btn:hover {
-background: #d6ebff;
-}
-
-.param-row {
-display: flex;
-gap: 8px;
-margin-top: 8px;
-}
-
-.param-row input, .param-row select {
-flex: 1;
-}
-
-.delete-btn {
-background: #ff4d4d;
-color: white;
-border: none;
-padding: 0 10px;
-border-radius: 6px;
-cursor: pointer;
-}
-
-.register-btn {
-background: linear-gradient(to right, #43cea2, #185a9d);
-color: white;
-border: none;
-padding: 12px;
-width: 100%;
-border-radius: 8px;
-font-size: 16px;
-margin-top: 15px;
-cursor: pointer;
-}
-
-.register-btn:hover {
-opacity: 0.9;
-}
-
-.login-link {
-text-align: center;
-margin-top: 10px;
-font-size: 14px;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | AI Health Assistant</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
 
-<div class="container">
-<div class="logo">AI-Based Healthy Lifestyle Assistant</div>
-<div class="subtitle">Create Your Account</div>
+    <div class="container wide">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <i class="fas fa-user-plus fa-3x" style="color: var(--primary-color);"></i>
+        </div>
+        <h2>Create Account</h2>
+        <p class="subtitle">Join our AI-powered healthy lifestyle community</p>
 
-<input id="name" type="text" placeholder="Name">
-<input id="email" type="email" placeholder="Email (User ID)">
-<input id="password" type="password" placeholder="Password">
+        <!-- Personal Information Section -->
+        <div class="section-title">
+            <i class="fas fa-id-card"></i> Personal Information
+        </div>
+        
+        <div class="form-group">
+            <input id="name" type="text" placeholder="Full Name">
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <input id="email" type="email" placeholder="Email Address">
+            </div>
+            <div class="form-group">
+                <input id="password" type="password" placeholder="Password">
+            </div>
+        </div>
 
+        <div class="row">
+            <div class="form-group">
+                <select id="gender">
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input id="dob" type="date" placeholder="Date of Birth">
+            </div>
+        </div>
 
-<div class="row">
-<select id="gender">
-<option value="">Gender</option>
-<option value="Male">Male</option>
-<option value="Female">Female</option>
-<option value="Other">Other</option>
-</select>
-<input id="dob" type="date">
-</div>
+        <!-- Health Metrics Section -->
+        <div class="section-title" style="margin-top: 20px;">
+            <i class="fas fa-notes-medical"></i> Health Metrics
+        </div>
 
-<div class="row">
-<input id="weight" type="number" placeholder="Weight (kg)">
-<input id="height" type="number" placeholder="Height (cm)">
-</div>
+        <div class="row">
+            <div class="form-group">
+                <input id="weight" type="number" placeholder="Weight (kg)">
+            </div>
+            <div class="form-group">
+                <input id="height" type="number" placeholder="Height (cm)">
+            </div>
+        </div>
 
-<div class="toggle">
-<strong>Diabetes</strong>
-<label><input type="radio" name="diabetes" value="Yes"> Yes</label>
-<label><input type="radio" name="diabetes" value="No" checked> No</label>
-</div>
+        <div class="toggle-group">
+            <label style="margin:0;"><i class="fas fa-syringe"></i> Do you have Diabetes?</label>
+            <div>
+                <label style="display:inline; margin-right:15px;"><input type="radio" name="diabetes" value="Yes"> Yes</label>
+                <label style="display:inline;"><input type="radio" name="diabetes" value="No" checked> No</label>
+            </div>
+        </div>
 
-<input id="cholesterol" type="text" placeholder="Cholesterol (mg/dL)">
-<input id="bp" type="text" placeholder="Blood Pressure (120/80)">
+        <div class="row">
+            <div class="form-group">
+                <input id="cholesterol" type="text" placeholder="Cholesterol (mg/dL)">
+            </div>
+            <div class="form-group">
+                <input id="bp" type="text" placeholder="Blood Pressure (e.g. 120/80)">
+            </div>
+        </div>
 
-<button class="add-btn" onclick="addParameter()">+ Add Parameter</button>
+        <div class="section-title" style="margin-top: 20px;">
+            <i class="fas fa-file-medical-alt"></i> Additional Parameters
+        </div>
+        
+        <div id="parameters"></div>
+        
+        <button class="btn btn-outline" onclick="addParameter()" style="margin-bottom: 20px;">
+            <i class="fas fa-plus"></i> Add Health Parameter
+        </button>
 
-<div id="parameters"></div>
-<button class="register-btn" onclick="register()">Register</button>
+        <button class="btn" onclick="register()">Create Account <i class="fas fa-check-circle"></i></button>
 
-<div class="login-link">
-Already have an account? <a href="/login">Login</a>
-</div>
-</div>
+        <div class="link-text">
+            Already have an account? <a href="/login">Login here</a>
+        </div>
+    </div>
 
-<script>
-function addParameter() {
-const container = document.getElementById("parameters");
+    <script>
+    function addParameter() {
+        const container = document.getElementById("parameters");
+        const row = document.createElement("div");
+        row.className = "param-row";
 
-const row = document.createElement("div");
-row.className = "param-row";
+        row.innerHTML = `
+            <input type="text" placeholder="Parameter (e.g. SGPT)" class="param-name">
+            <input type="text" placeholder="Measure" class="param-value">
+            <select class="param-unit" style="min-width: 80px;">
+                <option>Unit</option>
+                <option>mg/dL</option>
+                <option>U/L</option>
+                <option>mmHg</option>
+            </select>
+            <button class="delete-btn" onclick="this.parentElement.remove()" title="Remove">
+                <i class="fas fa-trash"></i>
+            </button>
+        `;
 
-row.innerHTML = `
-<input type="text" placeholder="Parameter (SGPT, SGOT)" class="param-name">
-<input type="text" placeholder="Measure" class="param-value">
-<select class="param-unit">
-<option>Unit</option>
-<option>mg/dL</option>
-<option>U/L</option>
-<option>mmHg</option>
-</select>
-<button class="delete-btn" onclick="this.parentElement.remove()">🗑</button>
-`;
+        container.appendChild(row);
+    }
 
-container.appendChild(row);
-}
-</script>
-<script>
-async function register(){
+    async function register(){
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const gender = document.getElementById("gender").value;
+        const dob = document.getElementById("dob").value;
+        const weight = document.getElementById("weight").value;
+        const height = document.getElementById("height").value;
+        
+        // Get Diabetes value
+        const diabetesRadios = document.getElementsByName('diabetes');
+        let diabetes = 'No';
+        for(let radio of diabetesRadios){
+            if(radio.checked) diabetes = radio.value;
+        }
+        
+        const cholesterol = document.getElementById("cholesterol").value;
+        const bp = document.getElementById("bp").value;
 
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  const gender = document.getElementById("gender").value;
-  const dob = document.getElementById("dob").value;
-  const weight = document.getElementById("weight").value;
-  const height = document.getElementById("height").value;
-  
-  // Get Diabetes value
-  const diabetesRadios = document.getElementsByName('diabetes');
-  let diabetes = 'No';
-  for(let radio of diabetesRadios){
-    if(radio.checked) diabetes = radio.value;
-  }
-  
-  const cholesterol = document.getElementById("cholesterol").value;
-  const bp = document.getElementById("bp").value;
+        if(!name || !email || !password){
+            alert("Please fill all required fields");
+            return;
+        }
+        
+        // Collect additional parameters if needed (not implemented in original but could be useful)
+        
+        const userData = {
+            name, email, password, gender, dob, weight, height, diabetes, cholesterol, bp
+        };
 
-  if(!name || !email || !password){
-    alert("Please fill all required fields");
-    return;
-  }
-  
-  const userData = {
-    name, email, password, gender, dob, weight, height, diabetes, cholesterol, bp
-  };
-
-  try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userData)
-      });
-      
-      const data = await response.json();
-      
-      if(response.ok){
-          alert("Registration successful!");
-          window.location.href = "/login";
-      } else {
-          alert("Error: " + data.message || data.error);
-      }
-  } catch(err) {
-      console.error(err);
-      alert("Registration failed");
-  }
-}
-</script>
+        try {
+            const response = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userData)
+            });
+            
+            const data = await response.json();
+            
+            if(response.ok){
+                alert("Registration successful!");
+                window.location.href = "/login";
+            } else {
+                alert("Error: " + (data.message || data.error));
+            }
+        } catch(err) {
+            console.error(err);
+            alert("Registration failed");
+        }
+    }
+    </script>
 
 </body>
 </html>
