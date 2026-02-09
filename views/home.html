@@ -326,28 +326,28 @@ header h2 {
     <!-- METRICS -->
     <div class="metrics-grid">
         <div class="metric-card">
+            <div class="metric-icon">📏</div>
+            <div class="metric-label">Height</div>
+            <div class="metric-value" id="height-val">--</div>
+            <div class="metric-sub">cm</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-icon">⚖️</div>
+            <div class="metric-label">Weight</div>
+            <div class="metric-value" id="weight-val">--</div>
+            <div class="metric-sub">kg</div>
+        </div>
+        <div class="metric-card">
             <div class="metric-icon">❤️</div>
             <div class="metric-label">Blood Pressure</div>
-            <div class="metric-value">120/80</div>
-            <div class="metric-sub status-good">Normal</div>
+            <div class="metric-value" id="bp-val">--/--</div>
+            <div class="metric-sub" id="bp-status">Loading...</div>
         </div>
         <div class="metric-card">
             <div class="metric-icon">🩸</div>
             <div class="metric-label">Cholesterol</div>
-            <div class="metric-value">210</div>
-            <div class="metric-sub status-warn">mg/dL (High)</div>
-        </div>
-        <div class="metric-card">
-            <div class="metric-icon">🧪</div>
-            <div class="metric-label">SGPT</div>
-            <div class="metric-value">70</div>
-            <div class="metric-sub status-bad">U/L (Elevated)</div>
-        </div>
-        <div class="metric-card">
-            <div class="metric-icon">⚖️</div>
-            <div class="metric-label">BMI</div>
-            <div class="metric-value">23.5</div>
-            <div class="metric-sub status-good">Healthy</div>
+            <div class="metric-value" id="chol-val">--</div>
+            <div class="metric-sub" id="chol-status">Loading...</div>
         </div>
     </div>
 
@@ -416,6 +416,75 @@ document.addEventListener("DOMContentLoaded", () => {
     // Set Date
     const options = { weekday: 'long', month: 'long', day: 'numeric' };
     document.getElementById("date-text").innerText = new Date().toLocaleDateString('en-US', options);
+
+    // --- POPULATE METRICS ---
+    
+    // 1. Height
+    if(user.height) {
+        document.getElementById("height-val").innerText = user.height;
+    }
+
+    // 2. Weight
+    if(user.weight) {
+        document.getElementById("weight-val").innerText = user.weight;
+    }
+
+    // 3. Blood Pressure
+    // Handle both 'bloodPressure' (new schema) and 'bp' (old schema potential)
+    const bpValue = user.bloodPressure || user.bp;
+    
+    if(bpValue) {
+        const bpEl = document.getElementById("bp-val");
+        const bpStat = document.getElementById("bp-status");
+        
+        bpEl.innerText = bpValue;
+        
+        // Simple logic for status
+        if (bpValue.includes('/')) {
+            const [sys, dia] = bpValue.split('/').map(Number);
+            
+            if(sys < 120 && dia < 80) {
+                bpStat.innerText = "Normal";
+                bpStat.className = "metric-sub status-good";
+            } else if((sys >= 120 && sys <= 129) && dia < 80) {
+                bpStat.innerText = "Elevated";
+                bpStat.className = "metric-sub status-warn";
+            } else if((sys >= 130 || dia >= 80)) {
+                bpStat.innerText = "High Blood Pressure";
+                bpStat.className = "metric-sub status-bad";
+            } else {
+                 bpStat.innerText = "Check Values";
+            }
+        } else {
+             bpStat.innerText = "Invalid Format";
+        }
+    } else {
+        document.getElementById("bp-status").innerText = "Not Measured";
+    }
+
+    // 4. Cholesterol
+    if(user.cholesterol) {
+        const chol = parseInt(user.cholesterol);
+        const cholEl = document.getElementById("chol-val");
+        const cholStat = document.getElementById("chol-status");
+        
+        cholEl.innerText = chol;
+        
+        if (!isNaN(chol)) {
+            if(chol < 200) {
+                cholStat.innerText = "Desirable";
+                cholStat.className = "metric-sub status-good";
+            } else if(chol >= 200 && chol <= 239) {
+                cholStat.innerText = "Borderline High";
+                cholStat.className = "metric-sub status-warn";
+            } else {
+                cholStat.innerText = "High";
+                cholStat.className = "metric-sub status-bad";
+            }
+        }
+    } else {
+        document.getElementById("chol-status").innerText = "Not Measured";
+    }
 });
 
 function goProfile() { window.location.href = "/profile"; }

@@ -35,11 +35,22 @@
 
     <script>
     async function login(){
-        let email = document.getElementById("email").value;
-        let password = document.getElementById("password").value;
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
 
-        if(email === "" || password === ""){
-            alert("Please enter email and password");
+        if (!email) {
+            alert("Please enter your email address.");
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert("Please enter a valid email address.");
+            return;
+        }
+
+        if (!password) {
+            alert("Please enter your password.");
             return;
         }
 
@@ -60,7 +71,7 @@
             }
         } catch(err) {
             console.error(err);
-            alert("Server error");
+            alert("Server error. Please try again later.");
         }
     }
     </script>

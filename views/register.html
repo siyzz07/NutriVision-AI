@@ -119,8 +119,8 @@
     }
 
     async function register(){
-        const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value;
         const gender = document.getElementById("gender").value;
         const dob = document.getElementById("dob").value;
@@ -134,18 +134,96 @@
             if(radio.checked) diabetes = radio.value;
         }
         
-        const cholesterol = document.getElementById("cholesterol").value;
-        const bp = document.getElementById("bp").value;
+        const cholesterol = document.getElementById("cholesterol").value.trim();
+        const bp = document.getElementById("bp").value.trim();
 
-        if(!name || !email || !password){
-            alert("Please fill all required fields");
+        // Validation
+        if (!name) {
+            alert("Please enter your full name.");
             return;
         }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert("Please enter a valid email address.");
+            return;
+        }
+
+        if (password.length < 6) {
+            alert("Password must be at least 6 characters long.");
+            return;
+        }
+
+        if (gender === "") {
+            alert("Please select your gender.");
+            return;
+        }
+
+        if (!dob) {
+            alert("Please enter your date of birth.");
+            return;
+        }
+        
+        // Basic age validation
+        const birthDate = new Date(dob);
+        const today = new Date();
+        if (birthDate > today) {
+            alert("Date of birth cannot be in the future.");
+            return;
+        }
+
+        if (!weight || weight <= 0) {
+            alert("Please enter a valid weight in kg.");
+            return;
+        }
+
+        if (!height || height <= 0) {
+            alert("Please enter a valid height in cm.");
+            return;
+        }
+
+        if (cholesterol && isNaN(cholesterol)) {
+            alert("Cholesterol must be a numeric value.");
+            return;
+        }
+        
+        // Detailed Cholesterol validation (if provided or required)
+        if (!cholesterol) {
+             alert("Please enter your cholesterol level.");
+             return;
+        }
+        if (cholesterol < 50 || cholesterol > 600) {
+            alert("Please enter a valid cholesterol level between 50 and 600.");
+            return;
+        }
+
+        // Detailed BP validation
+        if (!bp) {
+            alert("Please enter your blood pressure.");
+            return;
+        }
+        
+        const bpRegex = /^\d{2,3}\/\d{2,3}$/;
+        if (!bpRegex.test(bp)) {
+            alert("Blood Pressure format should be like 120/80.");
+            return;
+        }
+        
+        const [systolic, diastolic] = bp.split('/').map(Number);
+        if (systolic < 70 || systolic > 250) {
+            alert("Systolic blood pressure (first number) seems invalid. Normally between 70 and 250.");
+            return;
+        }
+        if (diastolic < 40 || diastolic > 150) {
+            alert("Diastolic blood pressure (second number) seems invalid. Normally between 40 and 150.");
+            return;
+        }
+
         
         // Collect additional parameters if needed (not implemented in original but could be useful)
         
         const userData = {
-            name, email, password, gender, dob, weight, height, diabetes, cholesterol, bp
+            name, email, password, gender, dob, weight, height, diabetes, cholesterol, bloodPressure: bp
         };
 
         try {
@@ -165,7 +243,7 @@
             }
         } catch(err) {
             console.error(err);
-            alert("Registration failed");
+            alert("Registration failed. Please try again later.");
         }
     }
     </script>
